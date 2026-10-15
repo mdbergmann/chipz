@@ -32,7 +32,7 @@
      #+clisp 'gray:fundamental-binary-input-stream
      #+ecl 'gray:fundamental-binary-input-stream
      #+clasp 'gray:fundamental-binary-input-stream
-     #+cl-amiga 'gray:fundamental-binary-input-stream
+     #+amilisp 'gray:fundamental-binary-input-stream
      #+genera 'gray-streams:fundamental-binary-input-stream)
 
   (defvar *stream-read-byte-function*
@@ -44,7 +44,7 @@
      #+clisp 'gray:stream-read-byte
      #+ecl 'gray:stream-read-byte
      #+clasp 'gray:stream-read-byte
-     #+cl-amiga 'gray:stream-read-byte
+     #+amilisp 'gray:stream-read-byte
      #+genera 'gray-streams:stream-read-byte)
 
   (defvar *stream-read-sequence-function*
@@ -56,11 +56,11 @@
      #+clisp 'gray:stream-read-byte-sequence
      #+ecl 'gray:stream-read-sequence
      #+clasp 'gray:stream-read-sequence
-     ;; cl-amiga's Gray streams expose STREAM-READ-SEQUENCE with the
+     ;; amilisp's Gray streams expose STREAM-READ-SEQUENCE with the
      ;; trivial-gray-streams lambda list (stream sequence start end &key);
      ;; CL:READ-SEQUENCE dispatches to it for Gray streams, so DEFINE-STREAM-
      ;; READ-SEQUENCE below installs a real bulk decompress method.
-     #+cl-amiga 'gray:stream-read-sequence
+     #+amilisp 'gray:stream-read-sequence
      #+genera 'gray-streams:stream-read-sequence)
 ) ; EVAL-WHEN
 
@@ -83,9 +83,9 @@
     `(defmethod #.*stream-read-sequence-function* ((stream ,specializer) seq start end)
        ,definition)
 
-    ;; cl-amiga's GRAY:STREAM-READ-SEQUENCE has the trivial-gray-streams
+    ;; amilisp's GRAY:STREAM-READ-SEQUENCE has the trivial-gray-streams
     ;; lambda list: (stream sequence start end &key).
-    #+cl-amiga
+    #+amilisp
     `(defmethod #.*stream-read-sequence-function* ((stream ,specializer) seq start end &key)
        ,definition)
 
